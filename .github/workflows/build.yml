@@ -16,12 +16,12 @@ jobs:
       id-token: write
       packages: write
     steps:
-      - uses: vexxhost/docker-atmosphere/.github/actions/checkout@2023.1
+      - uses: vexxhost/docker-atmosphere/.github/actions/checkout@main
         with:
           repository: openstack/magnum
           ref: aa7b4a2ca6d9ea0e6d73f0a7fc9d2e6176821af7
 
-      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@2023.1
+      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@main
         with:
           image-name: magnum
           build-contexts: magnum=openstack/magnum

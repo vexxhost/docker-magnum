@@ -16,13 +16,14 @@ jobs:
       id-token: write
       packages: write
     steps:
-      - uses: vexxhost/docker-atmosphere/.github/actions/checkout@main
+      - uses: vexxhost/docker-atmosphere/.github/actions/checkout@stable/zed
         with:
           repository: openstack/magnum
-          ref: eb56e291ad68ff74c7abcc166b8a7092206d16b7
+          ref: f3a8ec2e5367a239ce184a2cf1f00a10645bc3f0
 
-      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@main
+      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@stable/zed
         with:
           image-name: magnum
+          base-image-tag: zed
           build-contexts: magnum=openstack/magnum
           push: ${{ github.event_name != 'pull_request' }}

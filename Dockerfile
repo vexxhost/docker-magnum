@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Atmosphere-Rebuild-Time: 2024-06-25T22:49:25Z
 
-FROM ubuntu AS helm
+FROM ubuntu@sha256:c35e29c9450151419d9448b0fd75374fec4fff364a27f176fb458d472dfc9e54 AS helm
 ARG TARGETOS
 ARG TARGETARCH
 ARG HELM_VERSION=3.14.0

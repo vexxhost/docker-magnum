@@ -20,7 +20,7 @@ jobs:
       - uses: vexxhost/docker-atmosphere/.github/actions/checkout@main
         with:
           repository: openstack/magnum
-          ref: 913a3e00aea716883620f6f122da551876deb655 # stable/2025.1
+          ref: 075f62e8172b366b70854bc2dc1908ab5f60632a # stable/2025.1
 
       - uses: vexxhost/docker-atmosphere/.github/actions/build-image@main
         with:

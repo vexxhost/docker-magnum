@@ -15,7 +15,7 @@ RUN --mount=type=bind,from=magnum,source=/,target=/src/magnum,readwrite <<EOF ba
 uv pip install \
     --constraint /upper-constraints.txt \
         /src/magnum \
-        magnum-cluster-api==0.36.2
+        magnum-cluster-api==0.36.5
 EOF
 
 FROM ghcr.io/vexxhost/python-base:2024.2@sha256:77b97086919e4b7b834311de311bf2d60cec18d9e45c04978408c4335eed4bd5

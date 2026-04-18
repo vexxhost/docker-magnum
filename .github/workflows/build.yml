@@ -25,12 +25,12 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: vexxhost/docker-atmosphere/.github/actions/checkout@01f39b179e76b7da3831bb70bef15e817df49590 # main
+      - uses: vexxhost/docker-atmosphere/.github/actions/checkout@9230f0db4d54e491221dad48b9d4012b99aaf26b # main
         with:
           repository: openstack/magnum
           ref: 330321a64c846b5d4fa8b78d0fe1bcfe580413ce # master
 
-      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@01f39b179e76b7da3831bb70bef15e817df49590 # main
+      - uses: vexxhost/docker-atmosphere/.github/actions/build-image@9230f0db4d54e491221dad48b9d4012b99aaf26b # main
         with:
           image-name: magnum
           build-contexts: magnum=openstack/magnum

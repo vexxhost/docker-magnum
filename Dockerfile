@@ -10,7 +10,7 @@ ADD https://get.helm.sh/helm-v${HELM_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz /
 RUN tar -xzf /helm.tar.gz
 RUN mv /${TARGETOS}-${TARGETARCH}/helm /usr/bin/helm
 
-FROM ghcr.io/vexxhost/openstack-venv-builder:main@sha256:3b5e65e2709e6b764b1656b5eb237b973da4a43d16f2dfd86a44053e37657568 AS build
+FROM ghcr.io/vexxhost/openstack-venv-builder:main@sha256:06eaecf7662b1dcbfc39a1171ac060fa3b1cebdd93476e23283e1326c5772fe2 AS build
 RUN --mount=type=bind,from=magnum,source=/,target=/src/magnum,readwrite <<EOF bash -xe
 uv pip install \
     --constraint /upper-constraints.txt \

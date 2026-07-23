@@ -17,13 +17,7 @@ jobs:
       packages: write
       pull-requests: write
     steps:
-      - uses: vexxhost/docker-atmosphere/.github/actions/checkout@e72a4bb3670421e6ec38413e3e90b11259d86ea1 # main
-        with:
-          repository: openstack/magnum
-          ref: 5bb6e629852de8900f3dbb6a5663f3faae435edb # stable/2024.1
-
       - uses: vexxhost/docker-atmosphere/.github/actions/build-image@e72a4bb3670421e6ec38413e3e90b11259d86ea1 # main
         with:
           image-name: magnum
-          build-contexts: magnum=openstack/magnum
           push: ${{ github.event_name != 'pull_request' }}

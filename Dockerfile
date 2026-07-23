@@ -11,10 +11,12 @@ RUN tar -xzf /helm.tar.gz
 RUN mv /${TARGETOS}-${TARGETARCH}/helm /usr/bin/helm
 
 FROM ghcr.io/vexxhost/openstack-venv-builder:2026.1@sha256:0d814b5e8fbeb107f44d0597672084acee1fb90f6e0bf3720d5e27453e92ed15 AS build
-RUN --mount=type=bind,from=magnum,source=/,target=/src/magnum,readwrite <<EOF bash -xe
+ENV UV_INDEX=https://packages.vexxhost.com/pypi/openstack/simple/
+ARG MAGNUM_VERSION=22.0.0+a8e.9.0
+RUN <<EOF bash -xe
 uv pip install \
     --constraint /upper-constraints.txt \
-        /src/magnum \
+        "magnum==${MAGNUM_VERSION}" \
         magnum-cluster-api==0.38.0
 EOF
 

@@ -17,7 +17,7 @@ RUN <<EOF bash -xe
 uv pip install \
     --constraint /upper-constraints.txt \
         "magnum==${MAGNUM_VERSION}" \
-        magnum-cluster-api==0.38.0
+        magnum-cluster-api==0.38.1
 EOF
 
 FROM ghcr.io/vexxhost/python-base:2023.2@sha256:23a15ee6a54e2f0ae9949d04ed6b8cdd5177742312db3abfb55689b56528709e

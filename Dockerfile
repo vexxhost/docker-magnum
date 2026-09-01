@@ -20,6 +20,21 @@ uv pip install \
         magnum-cluster-api==0.38.2
 EOF
 
+# PBR 7.0.3 cannot parse PEP 440 local versions such as the downstream
+# Magnum version above.  Carry the focused upstream fix until a non-yanked
+# PBR release includes it:
+# https://github.com/openstack/pbr/commit/8e66303b735aa3464c9124db8aa12156e442c50a
+COPY patches/pbr-local-version.patch /tmp/pbr-local-version.patch
+RUN <<'EOF' bash -xe
+pbr_root="$(/var/lib/openstack/bin/python -c 'import pathlib; import pbr.version; print(pathlib.Path(pbr.version.__file__).parent.parent)')"
+cd "${pbr_root}"
+git apply /tmp/pbr-local-version.patch
+rm /tmp/pbr-local-version.patch
+
+/var/lib/openstack/bin/python -c 'import magnum; assert magnum.__version__ == "22.0.0"'
+/var/lib/openstack/bin/magnum-db-manage --help >/dev/null
+EOF
+
 FROM ghcr.io/vexxhost/python-base:main@sha256:cd5f90fbe48ea093f842d4a685b9edfa5c80f4768b066f9b9957bbf47155c245
 RUN \
     groupadd -g 42424 magnum && \

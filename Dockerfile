@@ -10,7 +10,7 @@ ADD https://get.helm.sh/helm-v${HELM_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz /
 RUN tar -xzf /helm.tar.gz
 RUN mv /${TARGETOS}-${TARGETARCH}/helm /usr/bin/helm
 
-FROM ghcr.io/vexxhost/openstack-venv-builder:main@sha256:dd3adf3788a31aad0997c9ed789457b74bb4b7f1d83723aafae9af458cd942ce AS build
+FROM ghcr.io/vexxhost/openstack-venv-builder:main@sha256:64a2fe2bb35d6274efa3bfd3fbc4f2fdd9a581e8e578e13e1e398a8f38bd2a27 AS build
 ENV UV_INDEX=https://packages.vexxhost.com/pypi/openstack/simple/
 ARG MAGNUM_VERSION=22.0.0+a8e.9.0
 RUN <<EOF bash -xe
@@ -35,3 +35,20 @@ rm -rf /var/lib/apt/lists/*
 EOF
 COPY --from=helm --link /usr/bin/helm /usr/local/bin/helm
 COPY --from=build --link /var/lib/openstack /var/lib/openstack
+
+# Catch package-version parsing and command startup regressions before publishing.
+RUN <<'EOF_SMOKE' bash -xe
+/var/lib/openstack/bin/python - <<'PY'
+from importlib.metadata import version
+from packaging.version import Version
+import magnum
+import pbr.version
+
+installed_version = version("magnum")
+assert magnum.__version__ == Version(installed_version).base_version
+parsed = pbr.version.SemanticVersion.from_pip_string(installed_version)
+assert parsed.release_string() == installed_version
+assert pbr.version.SemanticVersion.from_pip_string("1.2.3+a8e.4.0").release_string() == "1.2.3+a8e.4.0"
+PY
+/var/lib/openstack/bin/magnum-db-manage --help >/dev/null
+EOF_SMOKE

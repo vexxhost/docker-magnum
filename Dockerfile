@@ -10,7 +10,7 @@ ADD https://get.helm.sh/helm-v${HELM_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz /
 RUN tar -xzf /helm.tar.gz
 RUN mv /${TARGETOS}-${TARGETARCH}/helm /usr/bin/helm
 
-FROM ghcr.io/vexxhost/openstack-venv-builder:2023.1@sha256:3fc4456ee7d1069b77513aed3f5fd2cec1d1f6bb1754b5b4c4785f9ec119061e AS build
+FROM ghcr.io/vexxhost/openstack-venv-builder:2023.1@sha256:60cd4eeb35f51e3f34acdd6ebb9fd0aad3e888df22674839fd69b76b086b094f AS build
 ENV UV_INDEX=https://packages.vexxhost.com/pypi/openstack/simple/
 ARG MAGNUM_VERSION=16.0.3+a8e.1.1
 RUN <<EOF bash -xe

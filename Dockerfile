@@ -20,7 +20,7 @@ uv pip install \
         magnum-cluster-api==0.38.2
 EOF
 
-FROM ghcr.io/vexxhost/python-base:2024.1@sha256:bb1abe63355c9cc749c96fbaa4afb61bd51c6e7b507b17453e60b6ab4f987ff2
+FROM ghcr.io/vexxhost/python-base:2024.1@sha256:cdda991a26956706d1d4e5a2cf16e36f87bbf2e06620a65a0173fa148b593bb5
 RUN \
     groupadd -g 42424 magnum && \
     useradd -u 42424 -g 42424 -M -d /var/lib/magnum -s /usr/sbin/nologin -c "Magnum User" magnum && \

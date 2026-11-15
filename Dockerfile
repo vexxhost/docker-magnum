@@ -10,7 +10,7 @@ ADD https://get.helm.sh/helm-v${HELM_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz /
 RUN tar -xzf /helm.tar.gz
 RUN mv /${TARGETOS}-${TARGETARCH}/helm /usr/bin/helm
 
-FROM ghcr.io/vexxhost/openstack-venv-builder:2023.1@sha256:74ab3290fd4a83deb08c63e4125c457774c09e59f7ba551666081fc03e90d45a AS build
+FROM ghcr.io/vexxhost/openstack-venv-builder:2023.1@sha256:52d37175a5486eb91f499b0c020d7cee7f5542e23a990bf67eb2739cb3444dc5 AS build
 ENV UV_INDEX=https://packages.vexxhost.com/pypi/openstack/simple/
 ARG MAGNUM_VERSION=16.0.3+a8e.1.1
 RUN <<EOF bash -xe
@@ -20,7 +20,7 @@ uv pip install \
         magnum-cluster-api==0.39.0
 EOF
 
-FROM ghcr.io/vexxhost/python-base:2023.1@sha256:fd302034d20f0100ca15fb28c79c664ede3e20cbf5960a9bc6223053745fa8ff
+FROM ghcr.io/vexxhost/python-base:2023.1@sha256:44d14948707dd6cfd920be41d4a7c26d1bbc35248ad2b786c95793db7ec3187c
 RUN \
     groupadd -g 42424 magnum && \
     useradd -u 42424 -g 42424 -M -d /var/lib/magnum -s /usr/sbin/nologin -c "Magnum User" magnum && \
